@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RedisCacheCoreAPI.Models;
+using Services.Iservices;
+using Services.Services;
 
 namespace RedisCacheCoreAPI.Controllers
 {
@@ -8,11 +11,16 @@ namespace RedisCacheCoreAPI.Controllers
     [ApiController]
     public class MemberController : ControllerBase
     {
-
-        public MemberController() { }
-
+        private readonly IMemberService _memberServices;
+        public MemberController(IMemberService service) {
+            _memberServices = service;
+        }
+        [HttpPost]
+        [Route("getList")]
+        [AllowAnonymous]
         public ReturnModel GetList()
         {
+            _memberServices.getLists();
             return new ReturnModel
             {
                 message = "success",
