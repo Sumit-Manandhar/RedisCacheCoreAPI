@@ -13,6 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddEntityFrameworkSqlServer().AddDbContext<Context>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("ConnextionStr")));
 builder.Services.AddScoped<IMemberService, MemberServices>();
+builder.Services.AddScoped<ICacheService, CacheServices>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

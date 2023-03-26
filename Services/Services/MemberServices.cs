@@ -12,23 +12,43 @@ namespace Services.Services
     public class MemberServices : IMemberService
     {
         private readonly Context _context;
-        public MemberServices(Context context)
+        private readonly ICacheService _cacheServices;
+        private readonly string cachekey = "membercache";
+        public MemberServices(Context context, ICacheService cacheServices)
         {
             _context = context;
+            _cacheServices = cacheServices;
         }
         public List<Member> getLists()
         {
-            var data = _context.DataMember.Select(a=> new Member
+            var cacheMember = _cacheServices.GetData<IEnumerable<Member>>(cachekey);
+            if (cacheMember == null )
             {
-                MemberId= a.MemberId,
+                var data = _context.DataMember.Select(a => new Member
+                {
+                    MemberId = a.MemberId,
 
-                Name= a.Name,
-                Address= a.Address,
-                CountryID= a.CountryID,
-                Phone= a.Phone,
+                    Name = a.Name,
+                    Address = a.Address,
+                    CountryID = a.CountryID,
+                    Phone = a.Phone,
+
+                }).ToList();
+                _cacheServices.SetData<IEnumerable<Member>>(cachekey, data, DateTimeOffset.Now.AddMinutes(20));
+                return data;
+            }
+
+            
+            return cacheMember.Select(a => new Member
+            {
+                MemberId = a.MemberId,
+
+                Name = a.Name,
+                Address = a.Address,
+                CountryID = a.CountryID,
+                Phone = a.Phone,
 
             }).ToList();
-            return data;
         }
     }
 }
