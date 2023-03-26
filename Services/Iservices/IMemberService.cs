@@ -10,6 +10,6 @@ namespace Services.Iservices
     public interface IMemberService
     {
 
-        Member getLists();
+        List<Member> getLists();
     }
 }

@@ -1,3 +1,5 @@
+using DataAccess.Context;
+using Microsoft.EntityFrameworkCore;
 using Services.Iservices;
 using Services.Services;
 
@@ -9,7 +11,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddEntityFrameworkSqlServer().AddDbContext<Context>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("ConnextionStr")));
 builder.Services.AddScoped<IMemberService, MemberServices>();
 var app = builder.Build();
 

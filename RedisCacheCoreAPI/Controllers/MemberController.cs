@@ -20,12 +20,12 @@ namespace RedisCacheCoreAPI.Controllers
         [AllowAnonymous]
         public ReturnModel GetList()
         {
-            _memberServices.getLists();
+            var data =_memberServices.getLists();
             return new ReturnModel
             {
                 message = "success",
                 success = true,
-
+                data=data
             };
         }
     }

@@ -1,4 +1,4 @@
-﻿using DataAccess;
+﻿using DataAccess.Context;
 using RedisCacheCoreAPI.Models;
 using Services.Iservices;
 using System;
@@ -11,15 +11,24 @@ namespace Services.Services
 {
     public class MemberServices : IMemberService
     {
-        //private readonly Context _context;
-        //public MemberServices(Context context)
-        //{
-        //    _context=context;
-        //}
-        public Member getLists()
+        private readonly Context _context;
+        public MemberServices(Context context)
         {
-            
-            throw new NotImplementedException();
+            _context = context;
+        }
+        public List<Member> getLists()
+        {
+            var data = _context.DataMember.Select(a=> new Member
+            {
+                MemberId= a.MemberId,
+
+                Name= a.Name,
+                Address= a.Address,
+                CountryID= a.CountryID,
+                Phone= a.Phone,
+
+            }).ToList();
+            return data;
         }
     }
 }

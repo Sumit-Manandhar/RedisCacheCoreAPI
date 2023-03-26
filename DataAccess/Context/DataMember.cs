@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DataAccess.NewFolder2;
+namespace DataAccess.Context;
 
 public partial class DataMember
 {
@@ -11,7 +11,7 @@ public partial class DataMember
 
     public string? Address { get; set; }
 
-    public int? CountryId { get; set; }
+    public int? CountryID { get; set; }
 
     public string? Phone { get; set; }
 }
