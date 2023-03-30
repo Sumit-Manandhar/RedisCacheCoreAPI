@@ -1,0 +1,8 @@
+nuget packages: 
+ Microsoft.Extensions.Configuration.Json
+using StackExchange.Redis
+ Microsoft.Extensions.Configuration
+
+
+***** need to download rediscache package: https://github.com/microsoftarchive/redis/releases/tag/win-3.0.504*****************************
+then open redis-server and redis-cli
